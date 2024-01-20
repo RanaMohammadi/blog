@@ -1,4 +1,10 @@
+import { Box, Paper } from "@mui/material";
+import BlogForm from "../components/BlogForm";
 const Edit = () => {
-  return <div>Edit page</div>;
+  return (
+    <Paper>
+      <BlogForm />
+    </Paper>
+  );
 };
 export default Edit;
