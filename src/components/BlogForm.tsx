@@ -6,16 +6,8 @@ import {
   redirect,
   FormMethod,
 } from "react-router-dom";
-import {
-  Button,
-  Stack,
-  TextField,
-  TextareaAutosize,
-  Typography,
-} from "@mui/material";
+import { Button, Stack, TextField, TextareaAutosize } from "@mui/material";
 import { BlogType } from "../pages/BlogList";
-import { title } from "process";
-import { randomInt } from "crypto";
 
 interface BlogPropType {
   blog: BlogType;
@@ -69,7 +61,7 @@ export async function formAction({ params, request }: ActionFunctionArgs) {
     if (data !== null) {
       let newBlog: BlogType = {
         id: generateNewId(),
-        createdAt: "2024",
+        createdAt: new Date().toISOString(),
         title: data.get("title") as string,
         imgUrl: data.get("imgUrl") as string,
         content: data.get("content") as string,

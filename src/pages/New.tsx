@@ -11,8 +11,8 @@ const New = () => {
   });
   const emptyBlogPost = createEmptyBlogPost();
   return (
-    <Paper sx={{ p: 10 }}>
-      <Typography variant="h4" sx={{ m: 5 }}>
+    <Paper sx={{ p: 5 }}>
+      <Typography variant="h4" sx={{ my: 3, mx: 10 }}>
         New blog post
       </Typography>
       <BlogForm blog={emptyBlogPost} method="post" />

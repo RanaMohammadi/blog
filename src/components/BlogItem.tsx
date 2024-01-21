@@ -14,21 +14,34 @@ import { Link, useLoaderData, useSubmit } from "react-router-dom";
 interface BlogPropType {
   blog: BlogType;
 }
+
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr);
+  return date.toLocaleString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
 const BlogItem: React.FC<BlogPropType> = ({ blog }) => {
-  const submitA = useSubmit();
+  const submit = useSubmit();
   const deleteHandler = () => {
-    submitA(null, { method: "DELETE" });
-    console.log("delete handler");
+    const proceed = window.confirm("Are you sure?");
+    if (proceed) {
+      submit(null, { method: "DELETE" });
+    }
   };
 
   return (
     <Box>
-      <Card sx={{ width: 500, mx: "auto", my: 6 }}>
+      <Card sx={{ width: 600, mx: "auto", my: 6 }}>
         <CardMedia component="img" src={blog.imgUrl ? blog.imgUrl : ""} />
         <CardContent>
-          <Stack direction="row">
+          <Stack direction="row" sx={{ my: 5 }}>
             <Typography variant="h4">{blog.title}</Typography>
-            <Typography variant="body1">{blog.createdAt}</Typography>
+            <Typography variant="body2" sx={{ whiteSpace: "nowrap" }}>
+              {formatDate(blog.createdAt)}
+            </Typography>
           </Stack>
           <Typography variant="body2" sx={{ whiteSpace: "pre-line" }}>
             {blog.content}

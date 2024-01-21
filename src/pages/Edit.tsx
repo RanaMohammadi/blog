@@ -6,8 +6,8 @@ const Edit = () => {
   const blogDetail: BlogType = useRouteLoaderData("blog-detail") as BlogType;
 
   return (
-    <Paper>
-      <Typography variant="h4" sx={{ m: 5 }}>
+    <Paper sx={{ py: 5 }}>
+      <Typography variant="h4" sx={{ my: 3, mx: 10 }}>
         Edit blog post
       </Typography>
       <BlogForm blog={blogDetail} method="patch" />

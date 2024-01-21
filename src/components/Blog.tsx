@@ -12,7 +12,14 @@ import { BlogType } from "../pages/BlogList";
 interface BlogPropType {
   blog: BlogType;
 }
+const createExcerpt = (content: string, maxLength: number): string => {
+  if (content.length <= maxLength) {
+    return content;
+  }
+  return content.slice(0, maxLength) + "...";
+};
 const Blog: React.FC<BlogPropType> = ({ blog }) => {
+  const excerpt = createExcerpt(blog.content, 150);
   return (
     <>
       <Box m="auto">
@@ -21,7 +28,7 @@ const Blog: React.FC<BlogPropType> = ({ blog }) => {
             height: 300,
             width: { xs: 200, md: 400 },
             bgcolor: "#eeee",
-            my: 6,
+            my: 1,
             mx: "auto",
             alignItems: "center",
           }}
@@ -37,8 +44,8 @@ const Blog: React.FC<BlogPropType> = ({ blog }) => {
             }
           ></CardMedia>
           <CardContent>
-            <Typography variant="h4">{blog.title}</Typography>
-            <Typography variant="body1">{blog.content}</Typography>
+            <Typography variant="h5">{blog.title}</Typography>
+            <Typography variant="body1">{excerpt}</Typography>
           </CardContent>
           <CardActions>
             <Button size="small">Read more</Button>
