@@ -16,7 +16,11 @@ const BlogList = () => {
   return (
     <div>
       {blogs.map((blog) => (
-        <Link key={blog.id} to={`${blog.id}`} style={{ marginRight: 5 }}>
+        <Link
+          key={blog.id}
+          to={`/detail/${blog.id}`}
+          style={{ marginRight: 5 }}
+        >
           {blog.title}
         </Link>
       ))}

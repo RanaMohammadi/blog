@@ -17,14 +17,11 @@ const Router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />} errorElement={<Error />}>
       <Route index element={<BlogList />} loader={loadBlogs} />
-      <Route
-        path="/:blogid"
-        element={<Detail />}
-        id="blog-detail"
-        loader={blogLoader}
-      />
+      <Route path="detail/:blogid" loader={blogLoader} id="blog-detail">
+        <Route index element={<Detail />} />
+        <Route path="edit" element={<Edit />} />
+      </Route>
       <Route path="/new" element={<New />} />
-      <Route path="/edit" element={<Edit />} />
     </Route>
   )
 );

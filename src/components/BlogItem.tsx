@@ -9,8 +9,17 @@ import {
   Stack,
 } from "@mui/material";
 import { BlogType } from "../pages/BlogList";
-import { useLoaderData } from "react-router-dom";
-const BlogItem = (blog: BlogType) => {
+import { Link, useLoaderData, useSubmit } from "react-router-dom";
+
+interface BlogPropType {
+  blog: BlogType;
+}
+const BlogItem: React.FC<BlogPropType> = ({ blog }) => {
+  const submit = useSubmit();
+  const deleteHandler = () => {
+    submit(null, { method: "DELETE" });
+  };
+
   return (
     <Box>
       <Card sx={{ width: 500, mx: "auto", my: 6 }}>
@@ -26,8 +35,12 @@ const BlogItem = (blog: BlogType) => {
         </CardContent>
         <CardActions>
           <Stack direction="row">
-            <Button size="medium">Edit</Button>
-            <Button size="medium">Delete</Button>
+            <Button size="medium">
+              <Link to="edit">Edit</Link>
+            </Button>
+            <Button size="medium" onClick={deleteHandler}>
+              Delete
+            </Button>
           </Stack>
         </CardActions>
       </Card>
