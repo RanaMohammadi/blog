@@ -15,16 +15,16 @@ const Detail = () => {
 export default Detail;
 export function blogLoader({ params }: LoaderFunctionArgs): BlogType {
   const id: string | undefined = params.blogid;
-  console.log(id);
-  const storedData: string | null = localStorage.getItem("seedData");
-  const blogs: BlogType[] = JSON.parse(storedData!);
-  const blogDetail = blogs.find((element) => element.id.toString() === id);
+
+  //TODO: handle forced unwrapped
+  const blogDetail: BlogType = JSON.parse(localStorage.getItem(id!)!);
   return blogDetail!;
 }
 export function blogAction({ params, request }: ActionFunctionArgs) {
   const id: string | undefined = params.blogId;
   const mt: string = request.method;
   if (mt === "DELETE") {
-    //localStorage.removeItem()
+    //TODO: handle forced unwrapped
+    localStorage.removeItem(id!);
   }
 }

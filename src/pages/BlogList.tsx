@@ -31,13 +31,18 @@ const BlogList = () => {
 export default BlogList;
 //TODO: separate functions
 export function loadBlogs(): BlogType[] {
-  localStorage.setItem("seedData", JSON.stringify(seedData));
+  seedData.map((data) => {
+    localStorage.setItem(data.id.toString(), JSON.stringify(data));
+  });
 
-  const storedData: string | null = localStorage.getItem("seedData");
-  if (storedData === null) {
-    return [];
-  } else {
-    const blogs: BlogType[] = JSON.parse(storedData);
-    return blogs;
+  let items: BlogType[] = [];
+
+  //TODO: handle forced unwrapped
+  for (let i = 0; i < localStorage.length; i++) {
+    const keyId = localStorage.key(i);
+    const item = JSON.parse(localStorage.getItem(keyId!)!);
+    items.push(item);
   }
+
+  return items;
 }

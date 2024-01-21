@@ -18,6 +18,7 @@ const BlogItem: React.FC<BlogPropType> = ({ blog }) => {
   const submit = useSubmit();
   const deleteHandler = () => {
     submit(null, { method: "DELETE" });
+    console.log("delete handler");
   };
 
   return (
