@@ -15,9 +15,9 @@ interface BlogPropType {
   blog: BlogType;
 }
 const BlogItem: React.FC<BlogPropType> = ({ blog }) => {
-  const submit = useSubmit();
+  const submitA = useSubmit();
   const deleteHandler = () => {
-    submit(null, { method: "DELETE" });
+    submitA(null, { method: "DELETE" });
     console.log("delete handler");
   };
 

@@ -2,6 +2,7 @@ import seedData from "../blog-app-seed.json";
 import { Link } from "react-router-dom";
 import Blog from "../components/Blog";
 import { useLoaderData } from "react-router-dom";
+import { useCallback, useEffect } from "react";
 export interface BlogType {
   id: number;
   title: string;
@@ -12,6 +13,14 @@ export interface BlogType {
 
 const BlogList = () => {
   const blogs = useLoaderData() as BlogType[];
+  const uploadData = useCallback(async () => {
+    seedData.map((data) => {
+      localStorage.setItem(data.id.toString(), JSON.stringify(data));
+    });
+  }, []);
+  useEffect(() => {
+    uploadData();
+  }, []);
 
   return (
     <div>
@@ -21,20 +30,15 @@ const BlogList = () => {
           to={`/detail/${blog.id}`}
           style={{ marginRight: 5 }}
         >
-          {blog.title}
+          <Blog blog={blog} />
         </Link>
       ))}
-      <Blog />
     </div>
   );
 };
 export default BlogList;
 //TODO: separate functions
 export function loadBlogs(): BlogType[] {
-  seedData.map((data) => {
-    localStorage.setItem(data.id.toString(), JSON.stringify(data));
-  });
-
   let items: BlogType[] = [];
 
   //TODO: handle forced unwrapped

@@ -10,7 +10,7 @@ const Edit = () => {
       <Typography variant="h4" sx={{ m: 5 }}>
         Edit blog post
       </Typography>
-      <BlogForm blog={blogDetail} />
+      <BlogForm blog={blogDetail} method="patch" />
     </Paper>
   );
 };
