@@ -8,7 +8,7 @@ import {
   Button,
 } from "@mui/material";
 import { BlogType } from "../pages/BlogList";
-
+import { useNavigate } from "react-router-dom";
 interface BlogPropType {
   blog: BlogType;
 }
@@ -19,7 +19,11 @@ const createExcerpt = (content: string, maxLength: number): string => {
   return content.slice(0, maxLength) + "...";
 };
 const Blog: React.FC<BlogPropType> = ({ blog }) => {
-  const excerpt = createExcerpt(blog.content, 150);
+  const excerpt = createExcerpt(blog.content, 185);
+  const navigate = useNavigate();
+  const clickHandler = () => {
+    navigate(`/detail/${blog.id}`);
+  };
   return (
     <>
       <Box>
@@ -44,8 +48,14 @@ const Blog: React.FC<BlogPropType> = ({ blog }) => {
             <Typography variant="h5">{blog.title}</Typography>
             <Typography variant="body1">{excerpt}</Typography>
           </CardContent>
-          <CardActions>
-            <Button size="small">Read more</Button>
+          <CardActions sx={{ justifyContent: "flex-end" }}>
+            <Button
+              size="small"
+              onClick={clickHandler}
+              sx={{ textTransform: "none" }}
+            >
+              Read more
+            </Button>
           </CardActions>
         </Card>
       </Box>

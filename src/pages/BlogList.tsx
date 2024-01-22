@@ -1,5 +1,5 @@
 import seedData from "../blog-app-seed.json";
-import { Link } from "react-router-dom";
+
 import Blog from "../components/Blog";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -153,9 +153,9 @@ const BlogList = () => {
         }}
       />
       {blogs.map((blog) => (
-        <Link key={blog.id} to={`/detail/${blog.id}`}>
+        <div key={blog.id}>
           <Blog blog={blog} />
-        </Link>
+        </div>
       ))}
       <Stack
         direction="row"
