@@ -2,7 +2,15 @@ import seedData from "../blog-app-seed.json";
 import { Link } from "react-router-dom";
 import Blog from "../components/Blog";
 import { useCallback, useEffect, useState } from "react";
-import { Button, Stack } from "@mui/material";
+import {
+  Button,
+  Stack,
+  Input,
+  InputAdornment,
+  IconButton,
+  TextField,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 export interface BlogType {
   id: number;
   title: string;
@@ -11,20 +19,27 @@ export interface BlogType {
   imgUrl: string | null;
 }
 
-const PAGE_SIZE = 10;
-const fetcher = (pageIndex: number) => {
+const pageSize = 10;
+
+const fetcher = (pageIndex: number, searchQuery: string) => {
   let items: BlogType[] = [];
 
   // Fetch data from localStorage based on pageIndex and PAGE_SIZE
-  const start = pageIndex * PAGE_SIZE;
-  const end = start + PAGE_SIZE;
+  const start = pageIndex * pageSize;
+  const end = start + pageSize;
 
   for (let i = start; i < end; i++) {
     const keyId = localStorage.key(i);
 
     if (keyId) {
       const item = JSON.parse(localStorage.getItem(keyId)!);
-      items.push(item);
+      // Apply filtering based on the search query and title
+      if (
+        !searchQuery ||
+        item.title.toLowerCase().includes(searchQuery.toLowerCase())
+      ) {
+        items.push(item);
+      }
     }
   }
 
@@ -45,13 +60,14 @@ const BlogList = () => {
   useEffect(() => {
     uploadData();
   }, [uploadData]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   function loadCurrentPage() {
-    blogs = fetcher(currentPage);
+    blogs = fetcher(currentPage, searchQuery);
   }
 
   function loadNextPage() {
-    const currentLoadedItems = (currentPage + 1) * PAGE_SIZE;
+    const currentLoadedItems = (currentPage + 1) * pageSize;
     if (currentLoadedItems >= localStorage.length) {
       return;
     }
@@ -66,6 +82,10 @@ const BlogList = () => {
 
     setCurrentPage((prev) => prev - 1);
   }
+  function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setSearchQuery(event.target.value);
+    setCurrentPage(0); // Reset to the first page when the search query changes
+  }
 
   loadCurrentPage();
 
@@ -79,6 +99,21 @@ const BlogList = () => {
         justifyItems: "center",
       }}
     >
+      <TextField
+        sx={{ my: 2, width: 400 }}
+        placeholder="Search by title"
+        value={searchQuery}
+        onChange={handleSearchChange}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton>
+                <SearchIcon />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
       {blogs.map((blog) => (
         <Link key={blog.id} to={`/detail/${blog.id}`}>
           <Blog blog={blog} />
