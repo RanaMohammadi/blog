@@ -24,7 +24,6 @@ const pageSize = 10;
 const fetcher = (pageIndex: number, searchQuery: string) => {
   let items: BlogType[] = [];
 
-  // Fetch data from localStorage based on pageIndex and PAGE_SIZE
   const start = pageIndex * pageSize;
   const end = start + pageSize;
 
@@ -33,7 +32,7 @@ const fetcher = (pageIndex: number, searchQuery: string) => {
 
     if (keyId) {
       const item = JSON.parse(localStorage.getItem(keyId)!);
-      // Apply filtering based on the search query and title
+
       if (
         !searchQuery ||
         item.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -51,7 +50,6 @@ const BlogList = () => {
 
   let blogs: BlogType[] = [];
 
-  // const blogs = fetcher(currentPage);
   const uploadData = useCallback(async () => {
     seedData.map((data) => {
       localStorage.setItem(data.id.toString(), JSON.stringify(data));
@@ -84,7 +82,7 @@ const BlogList = () => {
   }
   function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
     setSearchQuery(event.target.value);
-    setCurrentPage(0); // Reset to the first page when the search query changes
+    setCurrentPage(0);
   }
 
   loadCurrentPage();
@@ -145,16 +143,3 @@ const BlogList = () => {
   );
 };
 export default BlogList;
-//TODO: separate functions
-export function loadBlogs(): BlogType[] {
-  let items: BlogType[] = [];
-
-  //TODO: handle forced unwrapped
-  for (let i = 0; i < localStorage.length; i++) {
-    const keyId = localStorage.key(i);
-    const item = JSON.parse(localStorage.getItem(keyId!)!);
-    items.push(item);
-  }
-
-  return items;
-}

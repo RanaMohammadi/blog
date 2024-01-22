@@ -6,7 +6,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Root from "./pages/Root";
-import BlogList, { loadBlogs } from "./pages/BlogList";
+import BlogList from "./pages/BlogList";
 import Detail, { blogLoader, blogAction } from "./pages/Detail";
 import New from "./pages/New";
 import Edit from "./pages/Edit";
@@ -16,7 +16,7 @@ import { formAction } from "./components/BlogForm";
 const Router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />} errorElement={<Error />}>
-      <Route index element={<BlogList />} loader={loadBlogs} />
+      <Route index element={<BlogList />} />
       <Route path="detail/:blogid" loader={blogLoader} id="blog-detail">
         <Route index element={<Detail />} action={blogAction} />
         <Route path="edit" element={<Edit />} />
