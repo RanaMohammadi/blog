@@ -92,7 +92,12 @@ export async function formAction({ params, request }: ActionFunctionArgs) {
     }
   }
 
-  return redirect("/");
+  if (act === "patch") {
+    return redirect("..");
+  } else {
+    //TODO redirect to detail page
+    return redirect("/");
+  }
 }
 const generateNewId = (): number => {
   const id: number = Math.floor(Math.random());
