@@ -55,13 +55,10 @@ const BlogForm: React.FC<BlogPropType> = ({ blog, method }) => {
 };
 export default BlogForm;
 export async function formAction({ params, request }: ActionFunctionArgs) {
-  console.log("form action " + request.method);
-
   const act: string = request.method.toLowerCase();
   const data = await request.formData();
-  if (act === "post") {
-    console.log(data);
 
+  if (act === "post") {
     if (data !== null) {
       let newBlog: BlogType = {
         id: generateNewId(),
@@ -70,7 +67,9 @@ export async function formAction({ params, request }: ActionFunctionArgs) {
         imgUrl: data.get("imgUrl") as string,
         content: data.get("content") as string,
       };
+
       localStorage.setItem(newBlog.id.toString(), JSON.stringify(newBlog));
+      return redirect(`/detail/${newBlog.id}`);
     }
   }
   if (act === "patch") {
@@ -90,16 +89,13 @@ export async function formAction({ params, request }: ActionFunctionArgs) {
         JSON.stringify(editedBlog)
       );
     }
-  }
-
-  if (act === "patch") {
     return redirect("..");
-  } else {
-    //TODO redirect to detail page
-    return redirect("/");
   }
 }
 const generateNewId = (): number => {
-  const id: number = Math.floor(Math.random());
+  let id: number = Math.floor(Math.random() * 1000);
+  if (id <= 200) {
+    id += 200;
+  }
   return id;
 };

@@ -31,16 +31,15 @@ const Blog: React.FC<BlogPropType> = ({ blog }) => {
             my: 1,
           }}
         >
-          <CardMedia
-            component="img"
-            width="100"
-            height="100"
-            src={
-              blog.imgUrl
-                ? blog.imgUrl
-                : "https://www.shoutmeloud.com/wp-content/uploads/2020/05/blog.jpg"
-            }
-          ></CardMedia>
+          {blog.imgUrl !== null && (
+            <CardMedia
+              component="img"
+              width="100"
+              height="100"
+              src={blog.imgUrl}
+              alt={blog.title}
+            />
+          )}
           <CardContent>
             <Typography variant="h5">{blog.title}</Typography>
             <Typography variant="body1">{excerpt}</Typography>

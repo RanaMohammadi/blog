@@ -20,28 +20,65 @@ export interface BlogType {
 
 const pageSize = 10;
 
+// // const fetcher = (pageIndex: number, searchQuery: string) => {
+//   let items: BlogType[] = [];
+
+//   const start = pageIndex * pageSize;
+//   const end = start + pageSize;
+
+//   for (let i = start; i < end; i++) {
+//     const keyId = localStorage.key(i);
+
+//     if (keyId) {
+//       const item = JSON.parse(localStorage.getItem(keyId)!);
+
+//       if (
+//         !searchQuery ||
+//         item.title.toLowerCase().includes(searchQuery.toLowerCase())
+//       ) {
+//         items.push(item);
+//       }
+//     }
+//   }
+
+//   return items;
+// };
 const fetcher = (pageIndex: number, searchQuery: string) => {
   let items: BlogType[] = [];
 
-  const start = pageIndex * pageSize;
-  const end = start + pageSize;
+  if (searchQuery) {
+    for (let i = 0; i < localStorage.length; i++) {
+      const keyId = localStorage.key(i);
 
-  for (let i = start; i < end; i++) {
-    const keyId = localStorage.key(i);
+      if (keyId) {
+        const item = JSON.parse(localStorage.getItem(keyId)!);
 
-    if (keyId) {
-      const item = JSON.parse(localStorage.getItem(keyId)!);
+        if (
+          !searchQuery ||
+          item.title.toLowerCase().includes(searchQuery.toLowerCase())
+        ) {
+          items.push(item);
+        }
+      }
+    }
 
-      if (
-        !searchQuery ||
-        item.title.toLowerCase().includes(searchQuery.toLowerCase())
-      ) {
+    return items;
+  } else {
+    const start = pageIndex * pageSize;
+    const end = start + pageSize;
+
+    for (let i = start; i < end; i++) {
+      const keyId = localStorage.key(i);
+
+      if (keyId) {
+        const item = JSON.parse(localStorage.getItem(keyId)!);
+
         items.push(item);
       }
     }
-  }
 
-  return items;
+    return items;
+  }
 };
 
 const BlogList = () => {
@@ -50,10 +87,14 @@ const BlogList = () => {
   let blogs: BlogType[] = [];
 
   const uploadData = useCallback(async () => {
-    seedData.forEach((data) => {
-      localStorage.setItem(data.id.toString(), JSON.stringify(data));
-    });
+    const localStorageIsEmpty = localStorage.length === 0;
+    if (localStorageIsEmpty) {
+      seedData.forEach((data) => {
+        localStorage.setItem(data.id.toString(), JSON.stringify(data));
+      });
+    }
   }, []);
+
   useEffect(() => {
     uploadData();
   }, [uploadData]);
