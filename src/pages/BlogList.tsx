@@ -1,7 +1,6 @@
 import seedData from "../blog-app-seed.json";
 import { Link } from "react-router-dom";
 import Blog from "../components/Blog";
-import { useLoaderData } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { Button, Stack } from "@mui/material";
 export interface BlogType {
@@ -12,7 +11,7 @@ export interface BlogType {
   imgUrl: string | null;
 }
 
-const PAGE_SIZE = 50;
+const PAGE_SIZE = 10;
 const fetcher = (pageIndex: number) => {
   let items: BlogType[] = [];
 
@@ -45,7 +44,7 @@ const BlogList = () => {
   }, []);
   useEffect(() => {
     uploadData();
-  }, []);
+  }, [uploadData]);
 
   function loadCurrentPage() {
     blogs = fetcher(currentPage);
@@ -71,21 +70,39 @@ const BlogList = () => {
   loadCurrentPage();
 
   return (
-    <div>
+    <div
+      style={{
+        width: "100%",
+        maxWidth: 400,
+        margin: "auto",
+
+        justifyItems: "center",
+      }}
+    >
       {blogs.map((blog) => (
-        <Link
-          key={blog.id}
-          to={`/detail/${blog.id}`}
-          style={{ marginRight: 5 }}
-        >
+        <Link key={blog.id} to={`/detail/${blog.id}`}>
           <Blog blog={blog} />
         </Link>
       ))}
-      <Stack direction="row" spacing={2} sx={{ m: "auto" }}>
-        <Button variant="outlined" onClick={loadPreviousPage}>
+      <Stack
+        direction="row"
+        spacing={2}
+        sx={{ m: "auto", my: 5 }}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Button
+          variant="outlined"
+          onClick={loadPreviousPage}
+          sx={{ backgroundColor: "white" }}
+        >
           Prev
         </Button>
-        <Button variant="outlined" onClick={loadNextPage}>
+        <Button
+          variant="outlined"
+          onClick={loadNextPage}
+          sx={{ backgroundColor: "white" }}
+        >
           Next
         </Button>
       </Stack>

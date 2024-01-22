@@ -33,8 +33,8 @@ const BlogItem: React.FC<BlogPropType> = ({ blog }) => {
   };
 
   return (
-    <Box>
-      <Card sx={{ width: 600, mx: "auto", my: 6 }}>
+    <Stack>
+      <Card sx={{ width: "100%", maxWidth: 600, my: 6, mx: "auto", p: 3 }}>
         <CardMedia component="img" src={blog.imgUrl ? blog.imgUrl : ""} />
         <CardContent>
           <Stack direction="row" sx={{ my: 5 }}>
@@ -48,9 +48,17 @@ const BlogItem: React.FC<BlogPropType> = ({ blog }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Stack direction="row">
-            <Button size="medium">
-              <Link to="edit">Edit</Link>
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{ m: "auto", my: 5 }}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Button size="medium" color="primary">
+              <Link to="edit" style={{ color: "inherit" }}>
+                Edit
+              </Link>
             </Button>
             <Button size="medium" onClick={deleteHandler}>
               Delete
@@ -58,7 +66,7 @@ const BlogItem: React.FC<BlogPropType> = ({ blog }) => {
           </Stack>
         </CardActions>
       </Card>
-    </Box>
+    </Stack>
   );
 };
 export default BlogItem;

@@ -11,7 +11,7 @@ const New = () => {
   });
   const emptyBlogPost = createEmptyBlogPost();
   return (
-    <Paper sx={{ p: 5 }}>
+    <Paper sx={{ p: 5, maxWidth: 800, width: "100%", m: "auto", my: 3 }}>
       <Typography variant="h4" sx={{ my: 3, mx: 10 }}>
         New blog post
       </Typography>

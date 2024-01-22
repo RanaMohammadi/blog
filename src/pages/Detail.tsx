@@ -9,7 +9,6 @@ import {
 
 const Detail = () => {
   const blogDetail: BlogType = useRouteLoaderData("blog-detail") as BlogType;
-  console.log(blogDetail);
 
   return <BlogItem blog={blogDetail} />;
 };
@@ -28,8 +27,6 @@ export function blogAction({ params, request }: ActionFunctionArgs) {
   if (mt === "DELETE") {
     //TODO: handle forced unwrapped
     localStorage.removeItem(id!);
-    console.log("Item deleted");
-    console.log(id);
   }
   return redirect("/");
 }

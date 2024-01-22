@@ -22,15 +22,13 @@ const Blog: React.FC<BlogPropType> = ({ blog }) => {
   const excerpt = createExcerpt(blog.content, 150);
   return (
     <>
-      <Box m="auto">
+      <Box>
         <Card
           sx={{
-            height: 300,
+            maxHeight: 350,
             width: { xs: 200, md: 400 },
             bgcolor: "#eeee",
             my: 1,
-            mx: "auto",
-            alignItems: "center",
           }}
         >
           <CardMedia

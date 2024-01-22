@@ -1,7 +1,9 @@
-import { Stack, Typography, AppBar, Toolbar } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 const Error = () => {
   return (
     <Stack
+      justifyContent="center"
+      alignItems="center"
       sx={{
         width: { xs: 200, md: 500 },
         m: "auto",

@@ -1,6 +1,5 @@
 import {
   Form,
-  Navigate,
   useNavigate,
   ActionFunctionArgs,
   redirect,
@@ -28,19 +27,23 @@ const BlogForm: React.FC<BlogPropType> = ({ blog, method }) => {
           type="text"
           size="medium"
           name="title"
-          value={blog.title ?? ""}
+          defaultValue={blog.title ?? ""}
         />
-        <TextField label="ImageUrl" name="imageUrl" value={blog.imgUrl ?? ""} />
+        <TextField
+          label="ImageUrl"
+          name="imageUrl"
+          defaultValue={blog.imgUrl ?? ""}
+        />
         <TextareaAutosize
           placeholder=" Content"
           required
           minRows={15}
           name="content"
-          value={blog.content ?? ""}
+          defaultValue={blog.content ?? ""}
         />
         <Stack direction="row" spacing={2} justifyContent={"flex-end"}>
           <Button type="submit" variant="contained" color="primary">
-            Submit
+            Save
           </Button>
           <Button variant="outlined" color="primary" onClick={cancelHandler}>
             Cancel
