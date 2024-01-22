@@ -5,7 +5,6 @@ import { useCallback, useEffect, useState } from "react";
 import {
   Button,
   Stack,
-  Input,
   InputAdornment,
   IconButton,
   TextField,
@@ -51,7 +50,7 @@ const BlogList = () => {
   let blogs: BlogType[] = [];
 
   const uploadData = useCallback(async () => {
-    seedData.map((data) => {
+    seedData.forEach((data) => {
       localStorage.setItem(data.id.toString(), JSON.stringify(data));
     });
   }, []);

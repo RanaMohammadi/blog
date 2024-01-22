@@ -1,5 +1,4 @@
 import {
-  Box,
   Card,
   CardMedia,
   CardContent,
@@ -9,7 +8,7 @@ import {
   Stack,
 } from "@mui/material";
 import { BlogType } from "../pages/BlogList";
-import { Link, useLoaderData, useSubmit } from "react-router-dom";
+import { Link, useSubmit } from "react-router-dom";
 
 interface BlogPropType {
   blog: BlogType;

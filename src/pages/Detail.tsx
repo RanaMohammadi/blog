@@ -13,12 +13,25 @@ const Detail = () => {
   return <BlogItem blog={blogDetail} />;
 };
 export default Detail;
-export function blogLoader({ params }: LoaderFunctionArgs): BlogType {
+export function blogLoader({ params }: LoaderFunctionArgs): BlogType | null {
   const id: string | undefined = params.blogid;
 
-  //TODO: handle forced unwrapped
-  const blogDetail: BlogType = JSON.parse(localStorage.getItem(id!)!);
-  return blogDetail!;
+  // //TODO: handle forced unwrapped
+  // const blogDetail: BlogType = JSON.parse(localStorage.getItem(id!)!);
+  // return blogDetail!;
+
+  const blogDetailJSON = localStorage.getItem(id!);
+  const blogDetail: BlogType | null = blogDetailJSON
+    ? JSON.parse(blogDetailJSON)
+    : null;
+
+  if (blogDetail) {
+    // Your logic when blogDetail is not null
+    return blogDetail;
+  } else {
+    // Your logic when blogDetail is null
+    return null;
+  }
 }
 export function blogAction({ params, request }: ActionFunctionArgs) {
   const id: string | undefined = params.blogid;

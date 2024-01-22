@@ -1,4 +1,4 @@
-import { Box, Paper, Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import BlogForm from "../components/BlogForm";
 import { BlogType } from "./BlogList";
 const New = () => {
