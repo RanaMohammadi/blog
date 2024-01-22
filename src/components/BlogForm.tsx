@@ -55,10 +55,11 @@ const BlogForm: React.FC<BlogPropType> = ({ blog, method }) => {
 };
 export default BlogForm;
 export async function formAction({ params, request }: ActionFunctionArgs) {
-  console.log("form action");
+  console.log("form action" + request.method);
+
   const act: string = request.method;
   const data = await request.formData();
-  if (act === "post") {
+  if (act.toLowerCase() === "post") {
     console.log(data);
 
     if (data !== null) {
@@ -72,7 +73,7 @@ export async function formAction({ params, request }: ActionFunctionArgs) {
       localStorage.setItem(newBlog.id.toString(), JSON.stringify(newBlog));
     }
   }
-  if (act === "patch") {
+  if (act.toLowerCase() === "patch") {
     let idparam: string | undefined = params.blogid;
     if (idparam !== undefined && data !== null) {
       const id: number = +idparam;
