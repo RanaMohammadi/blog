@@ -55,7 +55,7 @@ const BlogForm: React.FC<BlogPropType> = ({ blog, method }) => {
 };
 export default BlogForm;
 export async function formAction({ params, request }: ActionFunctionArgs) {
-  console.log("form action" + request.method);
+  console.log("form action " + request.method);
 
   const act: string = request.method.toLowerCase();
   const data = await request.formData();

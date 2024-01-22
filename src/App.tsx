@@ -19,7 +19,7 @@ const Router = createBrowserRouter(
       <Route index element={<BlogList />} />
       <Route path="detail/:blogid" loader={blogLoader} id="blog-detail">
         <Route index element={<Detail />} action={blogAction} />
-        <Route path="edit" element={<Edit />} />
+        <Route path="edit" element={<Edit />} action={formAction} />
       </Route>
       <Route path="/new" element={<New />} action={formAction} />
     </Route>
